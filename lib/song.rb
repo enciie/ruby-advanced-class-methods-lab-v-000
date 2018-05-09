@@ -1,4 +1,3 @@
-require 'pry'
 class Song
   attr_accessor :name, :artist_name
   @@all = [] #Class varaiable to store all instances for Song
@@ -35,21 +34,18 @@ class Song
   end
 
   def self.find_or_create_by_name(string_name_of_song)
-    if self.find_by_name(string_name_of_song) == nil
-      self.create_by_name(string_name_of_song)
-    else
-      self.find_by_name(string_name_of_song)
-    end
+    self.find_by_name(string_name_of_song) ||  self.create_by_name(string_name_of_song)
   end
 
   def self.alphabetical
     @@all.sort_by {|w| w.name}
   end
 
-  def self.new_from_filename(mp3_filename)
-    song = self.new
+  def new_from_filename(mp3_filename)
+=
     song.name = mp3_filename.split(/[-.]/)[1].strip
     song.artist_name = mp3_filename.split(/[-.]/)[0].strip
+    song = self.new
     song
   end
 
